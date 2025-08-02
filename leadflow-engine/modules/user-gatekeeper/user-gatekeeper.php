@@ -120,3 +120,73 @@ function lfe_approve_user( $user_id ) {
 function lfe_deny_user( $user_id ) {
     wp_delete_user( $user_id );
 }
+
+/**
+ * Registration form shortcode.
+ */
+function lfe_registration_form_shortcode() {
+    ob_start();
+
+    if ( isset( $_POST['lfe_register'] ) ) {
+        $username = sanitize_user( $_POST['lfe_username'] );
+        $email = sanitize_email( $_POST['lfe_email'] );
+        $password = $_POST['lfe_password'];
+
+        $errors = [];
+
+        if ( username_exists( $username ) ) {
+            $errors[] = __( 'Username already exists.', 'leadflow-engine' );
+        }
+
+        if ( email_exists( $email ) ) {
+            $errors[] = __( 'Email already exists.', 'leadflow-engine' );
+        }
+
+        if ( empty( $errors ) ) {
+            $user_id = wp_insert_user( [
+                'user_login' => $username,
+                'user_email' => $email,
+                'user_pass'  => $password,
+            ] );
+
+            if ( ! is_wp_error( $user_id ) ) {
+                echo '<div class="lfe-success">' . __( 'Registration successful. Please wait for admin approval.', 'leadflow-engine' ) . '</div>';
+                return ob_get_clean();
+            } else {
+                $errors[] = $user_id->get_error_message();
+            }
+        }
+
+        if ( ! empty( $errors ) ) {
+            echo '<div class="lfe-error">';
+            foreach ( $errors as $error ) {
+                echo '<p>' . $error . '</p>';
+            }
+            echo '</div>';
+        }
+    }
+
+    ?>
+    <div id="lfe-registration-form">
+        <form action="" method="post">
+            <p>
+                <label for="lfe-username"><?php _e( 'Username', 'leadflow-engine' ); ?></label>
+                <input type="text" name="lfe_username" id="lfe-username" required>
+            </p>
+            <p>
+                <label for="lfe-email"><?php _e( 'Email', 'leadflow-engine' ); ?></label>
+                <input type="email" name="lfe_email" id="lfe-email" required>
+            </p>
+            <p>
+                <label for="lfe-password"><?php _e( 'Password', 'leadflow-engine' ); ?></label>
+                <input type="password" name="lfe_password" id="lfe-password" required>
+            </p>
+            <p>
+                <input type="submit" name="lfe_register" value="<?php _e( 'Register', 'leadflow-engine' ); ?>">
+            </p>
+        </form>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode( 'lfe_registration_form', 'lfe_registration_form_shortcode' );

@@ -1,0 +1,59 @@
+#lfe-registration-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#lfe-registration-form p {
+    margin-bottom: 15px;
+}
+
+#lfe-registration-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#lfe-registration-form input[type="text"],
+#lfe-registration-form input[type="email"],
+#lfe-registration-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+#lfe-registration-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #0073aa;
+    color: #fff;
+    cursor: pointer;
+}
+
+#lfe-registration-form input[type="submit"]:hover {
+    background-color: #005177;
+}
+
+.lfe-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.lfe-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}

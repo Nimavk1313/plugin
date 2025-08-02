@@ -77,6 +77,8 @@ function lfe_register_block_patterns() {
     );
 
     require_once plugin_dir_path( __FILE__ ) . 'patterns/lead-magnet-download.php';
+    require_once plugin_dir_path( __FILE__ ) . 'patterns/webinar-signup.php';
+    require_once plugin_dir_path( __FILE__ ) . 'patterns/coming-soon.php';
 }
 add_action( 'init', 'lfe_register_block_patterns' );
 
